@@ -101,3 +101,13 @@ related work
 [23]CAT-SLAM，[24]SMART。
 
 总结，没啥创新性，用里程计信息估计大致的候选帧，然后用DIRD来匹配检索。
+
+===============================================================================================
+《LMVI-SLAM: Robust Low-Light Monocular Visual-Inertial Simultaneous Localization and Mapping》2019，ROBIO
+图像增强：伽马校正，对比自适应直方图均衡化，改善亮度、对比度。亮度较低时，用光流跟踪。紧耦合的优化模型，重投影误差、imu积分误差。
+
+introduction
+[9]edge-slam。[10]PL-VIO，点、线特征。[11]线特征vo。
+优化相比滤波方法的一个优点是，非线性优化，而滤波是近似为线性优化，所以结果是不够精确的。
+本文贡献：
+1.图像增强
