@@ -66,3 +66,38 @@ brisk特征，ransac+p3p。
 
 ===============================================================================================
 《Loosely-Coupled Semi-Direct Monocular SLAM》2018，ICRA
+三个优化
+1.亮度BA，局部地图
+2.几何BA，滑窗关键帧的pose+地图特征点
+3.闭环时候的BA，保证全局一致性
+等于是直接法、特征点法的结合，准确率和鲁棒性上面优于SOTA。
+从结果来看，准确率比直接法高一些，跟orb-slam相比，差距不是很大，长时间之后可以看到一些差异。时间上，比直接法DSO慢一点点，比orb快很多了。
+
+introduction
+例如sift、orb等特征具有一定的亮度、视角不变性，相邻帧运动过大时还可以工作，直接法则不行。闭环检测的时候，则只能用特征点了。
+直接法DSO，半直接法SVO。
+
+本文：
+滑窗，局部直接法，用于pose跟踪，半稠密地图。
+全局，基于特征点修正关键帧pose，闭环检测。
+基于DSO+ORB，开源：https://github.com/sunghoon031/LCSD_SLAM
+
+related work
+直接法的问题，没有可以复用的地图。fixed map tracking, map based localization。
+
+细节实现todo
+
+===============================================================================================
+《Illumination Robust Loop Closure Detection with the Constraint of Pose》2019，不知名
+DIRD亮度不变特征，里程计信息，结合起来缩小检索范围，找到候选闭环帧。
+
+introduction
+[5]FAB-MAP2.0、SeqSLAM两个在闭环检测上是最优的。
+长时间slam，闭环检测维护的数据库巨大，效率越来越受影响。利用里程计信息解决这个问题，CAT-SLAM、SMART。里程计推测目前的大致位置，数据库分区域？
+
+related work
+局部特征描述：sift、surf、brief。全局特征描述：hog。
+检索方式，bow词袋树。拓扑图，通过几何位置索引。
+[23]CAT-SLAM，[24]SMART。
+
+总结，没啥创新性，用里程计信息估计大致的候选帧，然后用DIRD来匹配检索。
